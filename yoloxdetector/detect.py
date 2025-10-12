@@ -119,7 +119,7 @@ def run_video_inference(video_path, conf_thresh=0.3, nms_thresh=0.45, test_size=
 
 
 if __name__ == "__main__":
-    img_file = './datasets/VisDrone2019/test_images/0000006_00159_d_0000001.jpg'  # Change this to the dataset path
+    img_file = './detectiondatasets/VisDrone2019/test_images/0000006_00159_d_0000001.jpg'
     img = Image.open(img_file).convert("RGB")
     outpath = run_image_inference(img)
 
