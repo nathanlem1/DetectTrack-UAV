@@ -1,0 +1,140 @@
+# for YOLO-Like dir structure 
+# ${data_root}:
+#    |
+#    |___${train_folder_name}(Optional)
+#          |
+#          |____${seq_folder_name}
+#          |          |_______${seq_name}
+#          |                         |____${frame_name}
+#          |____${gt_folder_name}
+#                     |____${gt_txt_name}
+#    |___${test_folder_name}(Optional)
+#          |
+#          |____${seq_folder_name}
+#          |          |_______${seq_name}
+#          |                         |____${frame_name}
+#          |____${gt_folder_name}
+#                     |____${gt_txt_name}
+
+# track result MUST OBEY this strcture:
+# result:
+#    |
+#    |_____${train or test}(Optional)
+#                  |
+#                  |_____${tracker_name}(Optional)
+#                                |_______ ${seq_name}.txt
+
+
+
+gt_structure_config: 
+  #data_root: '/data/wujiapeng/datasets/VisDrone2019/VisDrone2019/'
+  data_root: '../datasets/VisDrone2019/MOT/'
+  has_split: True
+  train_or_test: test
+  train_folder_name: VisDrone2019-MOT-train
+  test_folder_name: VisDrone2019-MOT-test-dev
+  gt_folder_name: annotations
+  gt_txt_name: '{seq_name}.txt'  # gt.txt, {seq_name}.txt, etc.
+  gt_loc_format: '{data_root}/{split_name}/{gt_folder_name}/{gt_txt_name}' 
+
+tracker_structure_config:
+#  trackers_folder: './result/history/botsort/visdrone'
+  trackers_folder: './results/trackers/VisDrone-test/FSORTuav2'
+  has_split: False
+  split_name: ''
+  has_tracker_name: False
+  trackers_to_eval:   # None for all
+
+
+# other options
+#OUTPUT_FOLDER: './track_eval_output'   # Where to save eval results (if None  same as TRACKERS_FOLDER)
+#OUTPUT_FOLDER: './results/trackers/VisDrone-test/FSORTuav2'
+
+SEQ_INFO:  # seq_name: seq_length
+  'uav0000009_03358_v': 219
+  'uav0000073_00600_v': 328
+  'uav0000073_04464_v': 312
+  'uav0000077_00720_v': 780
+  'uav0000088_00290_v': 296
+  'uav0000119_02301_v': 179
+  'uav0000120_04775_v': 1000
+  'uav0000161_00000_v': 308
+  'uav0000188_00000_v': 260
+  'uav0000201_00000_v': 677
+  'uav0000249_00001_v': 360
+  'uav0000249_02688_v': 244
+  'uav0000297_00000_v': 146
+  'uav0000297_02761_v': 373
+  'uav0000306_00230_v': 420
+  'uav0000355_00001_v': 468
+  'uav0000370_00001_v': 265
+
+# CLASS configs
+CLASS_NAME_TO_CLASS_ID:
+  'ignored_regions': 0
+  'pedestrian': 1
+  'people': 2
+  'bicycle': 3
+  'car': 4 
+  'van': 5
+  'truck': 6
+  'tricycle': 7
+  'awning-tricycle': 8
+  'bus': 9
+  'motor': 10
+  'others': 11
+
+CLASSES_TO_EVAL: 
+  - 'pedestrian'
+  - 'car'
+  - 'van'
+  - 'truck'
+  - 'bus'
+
+DISTRACTOR_CLASSES_NAMES:
+  - 'people'
+  - 'bicycle'
+  - 'motor'
+  - 'awning-tricycle'
+  - 'others'
+
+# whether to set as single-class evaluation, if set true, then all tracking results are considered as single class
+AS_SINGLE_CLASS:
+  'enabled': false
+  'single_class_id': -1
+
+# zero mark, crowd (i.e. ignored region), occlusion and truncation settings
+# the predicted bounding box in this region or situation can be omitted to get a reasonable results
+
+ZERO_MARK:  # in gt annotation, the 'score' column (idx 6) indicates whether to consider the bbox
+  'enabled': true  # if is 0, then dropped the gt bbox
+
+CROWD_IGNORE_REGION:
+  'enabled': true
+  'col_idx': 7  # in Visdrone the class (col 7 in annotation) 0 indicates the ignored region
+  'class_id': 
+    - '0'  # list format. and the class is str type (because the txt is read as str)
+
+TRUNCATION: # indicates the degree of object parts appears outside a frame. in VisDrone, no truncation = 0 (truncation ratio 0%), and partial truncation = 1 (truncation ratio 1% ~ 50%)
+  'enabled': true  # whether filter the high-trunction objects
+  'thresh': 0  # when > 0, ommited
+
+OCCLUSION:  # indicates the fraction of objects being occluded. in VisDrone, no occlusion = 0 (occlusion ratio 0%), partial occlusion = 1 (occlusion ratio 1% ~ 50%), 
+  # heavy occlusion = 2 (occlusion ratio 50% ~ 100%))
+  'enabled': true  # whether filter the high-trunction objects
+  'thresh': 1  # when > 1, ommited
+
+COL_IDX_MAP:  # in gt file and tracking results file, the meaning of each cols. key: info, value: col idx
+  'time': 0
+  'id': 1 
+  'bbox_start': 2
+  'bbox_end': 5
+  'score': 6
+  'class': 7
+  'truncation': 8
+  'occlusion': 9
+
+FRAME_START_IDX: 1  # in a seq, the first frame is frame 0 or frame 1 
+
+
+# python scripts/run_custom_dataset.py --config_path configs/VisDrone_test_dev.yaml
