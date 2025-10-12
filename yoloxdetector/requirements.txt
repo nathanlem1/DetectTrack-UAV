@@ -1,0 +1,31 @@
+numpy
+opencv-python
+loguru
+scikit-image
+scikit-learn
+tqdm
+torch>=2.2.2
+torchvision>=0.17.2
+Pillow
+thop
+ninja
+tabulate
+tensorboard
+lap
+motmetrics
+filterpy
+h5py
+matplotlib
+scipy
+prettytable
+easydict
+tensorboard
+pyyaml
+yacs
+termcolor
+gdown
+onnx==1.17.0  # 1.8.1
+onnxruntime==1.18.0  # 1.8.0
+onnx-simplifier==0.3.5   # import onnxsim
+
+
