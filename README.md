@@ -13,8 +13,8 @@ and [UAVDT](https://sites.google.com/view/grli-uavdt/%E9%A6%96%E9%A1%B5) Multi-O
 solution, and find out that our proposed tracker, DetectTrack-UAV, performs competitively against the existing 
 state-of-the-art methods.
 
-The qualitative result (demo) of the DetectTrack-UAV on VisDrone2019-MOT-test-dev data (uav0000120_04775_v sequence from 
-frame 189 to frame 271) is shown below. 
+The qualitative result (demo) of the DetectTrack-UAV on VisDrone2019-MOT-test-dev data, particularly on a 
+uav0000120_04775_v sequence from frame 189 to frame 271, is shown below. 
 
 ![](./assets/uav0000120_04775_v_f189_to_f271.gif)
 
