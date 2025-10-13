@@ -28,7 +28,7 @@ timer = Timer()
 def make_parser():
     parser = argparse.ArgumentParser(description='Tracking pipeline for tracking objects in UAV videos.')
 
-    parser.add_argument("--path", default='../datasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences', type=str,
+    parser.add_argument("--path", default='./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences', type=str,
                         help="path to dataset under evaluation, currently only support VisDrone2019 and UAVDT."
                              "./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences  OR "  
                              "./trackingdatasets/UAVDT/UAV-benchmark-M")
@@ -384,14 +384,14 @@ if __name__ == "__main__":
             if args.default_parameters:
                 if args.benchmark == 'VisDrone':
                     args.exp_file = './yoloxdetector/exps/example/custom/yolox_x_weakaug_640.py'
-                    args.ckpt = r'./yoloxdetector/pretrained/best_ckpt_640.pth'    # Detection, VisDrone
+                    args.ckpt = r'./yoloxdetector/pretrained/yolox_best_ckpt_640.pth'    # Detection, VisDrone
                     # args.exp_file = './yoloxdetector/exps/example/custom/yolox_x_weakaug_2048.py'
-                    # args.ckpt = r'./yoloxdetector/pretrained/best_ckpt_2048.pth'    # Detection, VisDrone
+                    # args.ckpt = r'./yoloxdetector/pretrained/yolox_best_ckpt_2048.pth'    # Detection, VisDrone
                 elif args.benchmark == 'UAVDT':
                     args.exp_file = './yoloxdetector/exps/example/custom/yolox_x_weakaug_640.py'
-                    args.ckpt = r'./yoloxdetector/pretrained/best_ckpt_640.pth'    # Detection, VisDrone
+                    args.ckpt = r'./yoloxdetector/pretrained/yolox_best_ckpt_640.pth'    # Detection, VisDrone
                     # args.exp_file = './yoloxdetector/exps/example/custom/yolox_x_weakaug_2048.py'
-                    # args.ckpt = r'./yoloxdetector/pretrained/best_ckpt_2048.pth'    # Detection, VisDrone
+                    # args.ckpt = r'./yoloxdetector/pretrained/yolox_best_ckpt_2048.pth'    # Detection, VisDrone
                 else:
                     raise ValueError("Error: Unsupported benchmark:" + args.benchmark)
 
