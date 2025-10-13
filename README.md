@@ -347,21 +347,18 @@ python tools/demo_tracker_uav.py --demo_type video --path <path_to_video> --expe
 ```
 
 
-<!---
 ## Citation
-If you find this work useful, please consider citing our paper:
+
+If you find this work useful in your research, please consider citing it using:
+
 ```
-@misc{baisa2025fusionsortfusionmethodsonline,
-      title={FusionSORT: Fusion Methods for Online Multi-object Visual Tracking}, 
-      author={Nathanael L. Baisa},
-      year={2025},
-      eprint={2501.00843},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2501.00843}, 
+@misc{DetectTrackUAV2025,
+    title={{DetectTrack-UAV}: Multi-object Detection and Tracking in Moving UAV Videos},
+    author={Nathanael L. Baisa},
+    howpublished = {\url{https://github.com/nathanlem1/DetectTrack-UAV}},
+    year={2025}
 }
 ```
---->
 
 
 ## Acknowledgement
