@@ -36,7 +36,7 @@ def make_parser():
                         help='The name of the experiment, e.g. FSORTuav1, FSORTuav2, etc.')
     parser.add_argument("-f", "--exp_file", default=r"./yoloxdetector/exps/example/custom/yolox_x_weakaug_640.py",
                         type=str, help="Pls input your experiment description file")
-    parser.add_argument("-c", "--ckpt", default=r"./yoloxdetector/pretrained/best_ckpt_640.pth", type=str,
+    parser.add_argument("-c", "--ckpt", default=r"./yoloxdetector/pretrained/yolox_best_ckpt_640.pth", type=str,
                         help="ckpt for eval")
     parser.add_argument("--save_result", default=False, action="store_true",
                         help="save sequences with tracks of image/video.")
@@ -360,7 +360,7 @@ def main(exp, args):
     output_dir = osp.join(exp.output_dir, exp.exp_name)
     if not args.trt:
         if args.ckpt is None:
-            ckpt_file = osp.join(exp.output_dir, "best_ckpt.pth.tar")
+            ckpt_file = osp.join(exp.output_dir, "yolox_best_ckpt_640.pth")
         else:
             ckpt_file = args.ckpt
         logger.info("loading checkpoint")
