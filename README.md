@@ -109,13 +109,13 @@ and then put in `DetectTrack-UAV/yoloxdetector/pretrained` folder.
 Demo for image:
 ```shell
 # Being in DetectTrack-UAV/yoloxdetector folder
-python tools/demo.py image -f exps/example/custom/yolox_x_weakaug_640.py -c ./pretrained/best_ckpt_640.pth --path assets/sample_image.jpg --conf 0.25 --nms 0.45 --tsize 640 --save_result --device [cpu/gpu]
+python tools/demo.py image -f exps/example/custom/yolox_x_weakaug_640.py -c ./pretrained/yolox_best_ckpt_640.pth --path assets/sample_image.jpg --conf 0.25 --nms 0.45 --tsize 640 --save_result --device [cpu/gpu]
 ```
 
 Demo for video:
 ```shell
 # Being in DetectTrack-UAV/yoloxdetector folder
-python tools/demo.py video -f exps/example/custom/yolox_x_weakaug_640.py -c ./pretrained/best_ckpt_640.pth --path assets/sample_video.jpg --conf 0.25 --nms 0.45 --tsize 640 --save_result --device [cpu/gpu]
+python tools/demo.py video -f exps/example/custom/yolox_x_weakaug_640.py -c ./pretrained/yolox_best_ckpt_640.pth --path assets/sample_video.jpg --conf 0.25 --nms 0.45 --tsize 640 --save_result --device [cpu/gpu]
 ```
 
 
@@ -141,7 +141,7 @@ streamlit run app.py
 ```
 Note that you may need to change the path to the custom exp path in the `yolox_inference.py`, placed 
 here: `exp = get_exp(r"../exps/example/custom/yolox_x_weakaug_640.py", None)` and its corresponding ckpt 
-`ckpt = torch.load("../pretrained/best_ckpt_640.pth", map_location="cpu")`.
+`ckpt = torch.load("../pretrained/yolox_best_ckpt_640.pth", map_location="cpu")`.
 
 
 
@@ -158,7 +158,7 @@ following structure:
 DetectTrack-UAV/trackingdatasets
                     |——————VisDrone2019/MOT
                     |        └——————VisDrone2019-MOT-test-dev
-                    |               └——————annotations uav0000009_03358_v.txt
+                    |               └——————annotations 
                     |                       └——————uav0000009_03358_v.txt
                     |                       └——————uav0000073_00600_v.txt
                     |                       └——————...
@@ -263,7 +263,7 @@ and UAVDT datasets, you need to follow the following instructions.
 Note that VisDrone can be evaluated as a single category or multiple categories.
 
 If it is a single category review, please run the following first to combine the five valid categories specified by 
-VisDrone into one valid category for evaluating together.
+VisDrone into one valid category for evaluating together. You run this only once.
 
 ```bash
 # Being in 'DetectTrack-UAV/' folder
@@ -290,12 +290,12 @@ and tracking results folder.
 
 For single category reviews, please ensure that each line of your tracking results follows the following format:
 ```
-<frame id>,< object id>,<top-left-x>,<top-left-y>,<w>,<h>,<confidence score>,-1,...
+<frame id>,< object id>,<top-left-x>,<top-left-y>,<w>,<h>,<confidence score>,-1,-1,-1
 ```
 
 For multi-category reviews, please ensure that each line of your tracking results follows the following format:
 ```
-<frame id>,< object id>,<top-left-x>,<top-left-y>,<w>,<h>,<confidence score>,<class_id>,...
+<frame id>,< object id>,<top-left-x>,<top-left-y>,<w>,<h>,<confidence score>,<class_id>,<class_id>,<class_id>
 ```
 
 Note that in the process of multi-class evaluation, the 'class_id' in your tracking results must be completely 
@@ -307,9 +307,9 @@ of the tracking code that writes the tracking results yourself.
 * **Evaluating on UAVDT**
 
 The annotation of UAVDT dataset is divided into three files` gt.txt, gt_whole.txt, gt_ignore.txt `. Among them, 
-` gt.txt ` is the main annotation, while ` gt_ignore. txt ` is the annotation of the area that should be ignored. 
+` gt.txt ` is the main annotation, while ` gt_ignore.txt ` is the annotation of the area that should be ignored. 
 Therefore, we should merge these two files to **exclude matches within the ignored area, otherwise it will create an 
-oversized false positive (FP)** function:
+oversized false positive (FP)** function. You run this only once.
 
 
 ```bash
@@ -330,7 +330,7 @@ which is in UAVDT_test.yaml
 
 Please ensure that each line of your tracking results follows the following format:
 ```
-<frame id>,< object id>,<top-left-x>,<top-left-y>,<w>,<h>,<confidence score>,-1,...
+<frame id>,< object id>,<top-left-x>,<top-left-y>,<w>,<h>,<confidence score>,-1,-1,-1
 ```
 
 
