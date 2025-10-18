@@ -359,9 +359,7 @@ if __name__ == "__main__":
 
     for ext in seqs_ext:
         for i in seqs:
-            if args.benchmark == 'VisDrone':
-                seq = i
-            elif args.benchmark == 'UAVDT':
+            if args.benchmark == 'VisDrone' or args.benchmark == 'UAVDT':
                 seq = i
             else:
                 raise ValueError("Error: Unsupported benchmark:" + args.benchmark)
