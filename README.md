@@ -14,7 +14,7 @@ solution, and find out that our proposed tracker, DetectTrack-UAV, performs comp
 state-of-the-art methods.
 
 The qualitative result (demo) of the DetectTrack-UAV on VisDrone2019-MOT-test-dev data, particularly on a 
-uav0000120_04775_v sequence from frame 189 to frame 271, is shown below. 
+uav0000120_04775_v sequence, is shown below. 
 
 ![](./assets/uav0000120_04775_v_f189_to_f271.gif)
 
