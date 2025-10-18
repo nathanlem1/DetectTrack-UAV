@@ -26,7 +26,7 @@ show_box = st.sidebar.checkbox("Draw Bounding Boxes", value=True)
 from yolox_inference import exp
 selected_class = st.sidebar.selectbox(
     "Only show detections for class",
-    options=["All"] + exp.class_names,
+    options=["All"] + list(exp.class_names),
     index=0
 )
 

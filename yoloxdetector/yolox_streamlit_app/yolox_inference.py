@@ -14,8 +14,8 @@ exp = get_exp(r"../exps/example/custom/yolox_x_weakaug_640.py", None)
 
 model = exp.get_model()
 model.eval()
-# ckpt = torch.load("../pretrained/best_ckpt_2048.pth", map_location="cpu")
-ckpt = torch.load("../pretrained/best_ckpt_640.pth", map_location="cpu")
+# ckpt = torch.load("../pretrained/yolox_best_ckpt_2048.pth", map_location="cpu")
+ckpt = torch.load("../pretrained/yolox_best_ckpt_640.pth", map_location="cpu")
 model.load_state_dict(ckpt["model"])
 model = fuse_model(model)
 device = "cuda" if torch.cuda.is_available() else "cpu"
