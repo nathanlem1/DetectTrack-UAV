@@ -46,7 +46,7 @@ def make_parser():
                              'e.g. FSORTuav1, FSORTuav2, etc.')
     parser.add_argument("--default-parameters", dest="default_parameters", default=True, action="store_true",
                         help="use the default parameters as in the paper")
-    parser.add_argument("--save-frames", dest="save_frames", default=True, action="store_true",
+    parser.add_argument("--save-frames", dest="save_frames", default=False, action="store_true",
                         help="save sequences with tracks.")
     parser.add_argument('--display_tracks', default=False, action="store_true", help='Display sequences with tracks.')
 
