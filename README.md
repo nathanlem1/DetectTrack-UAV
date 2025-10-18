@@ -101,7 +101,8 @@ python tools/train.py -f exps/example/custom/yolox_x_weakaug_1024_1536.py -d 1 -
 ``` 
 
 ### Detection Demo
-First, you need to download a pretrained model from [here](https://drive.google.com/file/d/12BoRMRhfbBHnoN45lyVLQVxIWGLTjFI1/view?usp=drive_link) and then put in `pretrained` folder.
+First, you need to download a pretrained model from [here](https://drive.google.com/file/d/12BoRMRhfbBHnoN45lyVLQVxIWGLTjFI1/view?usp=drive_link) 
+and then put in `DetectTrack-UAV/yoloxdetector/pretrained` folder.
 
 * **Method 1:** Using traditional approach
 
@@ -195,7 +196,8 @@ DetectTrack-UAV/trackingdatasets
 
 ### Pretrained Model 
 
-First, you need to download a pretrained detection model from [here]() and then put in `DetectTrack-UAV/yoloxdetector/pretrained` 
+First, you need to download a pretrained detection model from [here](https://drive.google.com/file/d/12BoRMRhfbBHnoN45lyVLQVxIWGLTjFI1/view?usp=drive_link) 
+and then put in `DetectTrack-UAV/yoloxdetector/pretrained` 
 folder, and then follow the following instructions.
 
 
