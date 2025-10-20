@@ -100,6 +100,9 @@ YOLOX model. You can use this input image size by using `yolox_x_weakaug_1024_15
 python tools/train.py -f exps/example/custom/yolox_x_weakaug_1024_1536.py -d 1 -b 8 --fp16 -o -c ./YOLOX_weights/yolox_x.pth
 ``` 
 
+Note that increasing the input image size increases the detection performance at the expense of more computation time, 
+both training and inference time.
+
 ### Detection Demo
 First, you need to download a pretrained model from [here](https://drive.google.com/file/d/12BoRMRhfbBHnoN45lyVLQVxIWGLTjFI1/view?usp=drive_link) 
 and then put in `DetectTrack-UAV/yoloxdetector/pretrained` folder.
