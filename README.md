@@ -7,11 +7,10 @@ First, we fine-tune [YOLOX-X](https://github.com/Megvii-BaseDetection/YOLOX) obj
 [VisDrone2019](https://github.com/VisDrone/VisDrone-Dataset) detection images dataset. After investigating object detector 
 performances on the VisDrone2019 images dataset, we integrate it into a Kalman filter (KF) for tracking multiple objects. 
 In addition to considering motion as strong cue, we also consider weak cues such as height intersection-over-union 
-(height-IoU) and tracklet confidence in the data association using a weighted sum fusion method. We conduct 
-extensive evaluations on [VisDrone2019](https://github.com/VisDrone/VisDrone-Dataset) 
-and [UAVDT](https://sites.google.com/view/grli-uavdt/%E9%A6%96%E9%A1%B5) Multi-Object Tracking (MOT) datasets as a zero-shot 
-solution, and find out that our proposed tracker, DetectTrack-UAV, performs competitively against the existing 
-state-of-the-art methods.
+(height-IoU) and tracklet confidence in the data association using a weighted sum fusion method though the weak cues do 
+not increase performance. We conduct extensive evaluations on [VisDrone2019](https://github.com/VisDrone/VisDrone-Dataset) 
+and [UAVDT](https://sites.google.com/view/grli-uavdt/%E9%A6%96%E9%A1%B5) Multi-Object Tracking (MOT) datasets as a zero-shot solution, and find out that our proposed tracker,
+DetectTrack-UAV, performs competitively against the existing state-of-the-art methods.
 
 The qualitative result (demo) of the DetectTrack-UAV on VisDrone2019-MOT-test-dev data, particularly on a 
 uav0000120_04775_v sequence, is shown below. 
@@ -302,7 +301,7 @@ For multi-category reviews, please ensure that each line of your tracking result
 ```
 
 Note that in the process of multi-class evaluation, the 'class_id' in your tracking results must be completely 
-consistent with the * * marked as true value * *. For example, for VisDrone, the valid category IDs are '1, 4, 5, 6, 9' 
+consistent with the **marked as true value**. For example, for VisDrone, the valid category IDs are '1, 4, 5, 6, 9' 
 (corresponding to pedestrian, car, van, truck, bus), so the class ID part of your tracking result must also correspond 
 to '1, 4, 5, 6, 9', instead of '0, 3, 4, 5, 8' directly obtained by the detector. This requires you to modify the part 
 of the tracking code that writes the tracking results yourself.
