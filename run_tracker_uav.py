@@ -322,21 +322,17 @@ if __name__ == "__main__":
     if args.benchmark == 'VisDrone':
         train_seqs = []
         val_seqs = []
-        # test_seqs = ['uav0000119_02301_v', 'uav0000120_04775_v']
         test_seqs = ['uav0000009_03358_v', 'uav0000073_00600_v', 'uav0000073_04464_v', 'uav0000077_00720_v', 'uav0000088_00290_v',
                      'uav0000119_02301_v', 'uav0000120_04775_v', 'uav0000161_00000_v', 'uav0000188_00000_v', 'uav0000201_00000_v',
                      'uav0000249_00001_v', 'uav0000249_02688_v', 'uav0000297_00000_v', 'uav0000297_02761_v', 'uav0000306_00230_v',
                      'uav0000355_00001_v','uav0000370_00001_v']
         seqs_ext = ['']
-        MOT = ''
     elif args.benchmark == 'UAVDT':
         train_seqs = []
         val_seqs = []
-        # test_seqs = ['M0403']
         test_seqs = ['M0203', 'M0205', 'M0208', 'M0209', 'M0403', 'M0601', 'M0602', 'M0606', 'M0701', 'M0801', 'M0802',
                      'M1001', 'M1004', 'M1007', 'M1009', 'M1101', 'M1301', 'M1302', 'M1303', 'M1401']
         seqs_ext = ['']
-        MOT = ''
     else:
         raise ValueError("Error: Unsupported benchmark:" + args.benchmark)
 
@@ -370,7 +366,6 @@ if __name__ == "__main__":
             args.name = seq
 
             args.ablation = ablation
-            args.mot20 = MOT == 20
             args.fps = 30
             args.device = device
             args.fp16 = fp16
