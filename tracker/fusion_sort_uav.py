@@ -22,7 +22,7 @@ class STrack(BaseTrack):
 
         self.score = score
         self.tracklet_len = 0
-        self.category = category
+        self.category = int(category)
 
         self.smooth_feat = None
         self.curr_feat = None
@@ -158,7 +158,7 @@ class STrack(BaseTrack):
         af = self.alpha_fixed_emb
         alpha_ema = af + (1 - af) * (1 - trust)
         if new_track.curr_feat is not None:
-            # self.update_features(new_track.curr_feat, alpha_ema)  #  Changing alpha doesn't help!
+            # self.update_features(new_track.curr_feat, alpha_ema)  # Changing alpha doesn't help!
             self.update_features(new_track.curr_feat)
 
         self.state = TrackState.Tracked
@@ -395,7 +395,7 @@ class FusionSORTUAV(object):
 
         r_tracked_stracks = [strack_pool[i] for i in u_track if strack_pool[i].state == TrackState.Tracked]  # lost_tracks (inactive tracks) are not considered in the 2nd association.
         if self.args.second_matching_distance == 'iou':
-            # IoU is used for all fusion methods for 2nd association
+            # IoU is used for 2nd association
             dists = matching.iou_distance(r_tracked_stracks, detections_second, dist_type="iou")
         elif self.args.second_matching_distance == 'mahalanobis':
             dists = matching.mahalanobis_distance(self.kalman_filter, r_tracked_stracks, detections_second)
