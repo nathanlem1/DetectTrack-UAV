@@ -28,8 +28,8 @@ timer = Timer()
 def make_parser():
     parser = argparse.ArgumentParser(description='Tracking pipeline for tracking objects in UAV videos.')
 
-    parser.add_argument("--path", default='./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences', type=str,
-                        help="path to dataset under evaluation, currently only support VisDrone2019 and UAVDT."
+    parser.add_argument("--path", default='./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences',
+                        type=str, help="path to dataset under evaluation, currently only support VisDrone2019 and UAVDT."
                              "./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences  OR "  
                              "./trackingdatasets/UAVDT/UAV-benchmark-M")
     parser.add_argument('--output_dir', type=str, default='./results/trackers',
