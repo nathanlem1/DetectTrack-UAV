@@ -10,7 +10,7 @@ from tracker.kalman_filter_score import KalmanFilterScore
 class STrack(BaseTrack):
     shared_kalman = KalmanFilterScore()
 
-    def __init__(self, tlwh, score, category=None, feat=None, feat_history=50):
+    def __init__(self, tlwh, score, category_index=0, feat=None, feat_history=50):
 
         # Wait activate
         self._tlwh = np.asarray(tlwh, dtype=float)  # np.float
@@ -22,7 +22,7 @@ class STrack(BaseTrack):
 
         self.score = score
         self.tracklet_len = 0
-        self.category = int(category)
+        self.category = int(category_index)
 
         self.smooth_feat = None
         self.curr_feat = None
