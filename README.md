@@ -88,10 +88,10 @@ Then, you can start detection training by running the following command:
 # Being in DetectTrack-UAV/yoloxdetector folder
 python tools/train.py -f exps/example/custom/yolox_x_weakaug_640.py -d 1 -b 8 --fp16 -o -c ./YOLOX_weights/yolox_x.pth
 ``` 
-This command uses `640 x 640` input image size.
+This command uses `640 x 640` input image size (in **height** x **width** format).
 
 As an another alternative, we choose the input size by conducting the average of the VisDrone2019 training image sizes 
-(1002x1520) and then taking the next 32-divisible number (1024x1536) to align with the 32-divisiblility requirement of 
+(1002 x 1520) and then taking the next 32-divisible number (1024 x 1536) to align with the 32-divisiblility requirement of 
 YOLOX model. You can use this input image size by using `yolox_x_weakaug_1024_1536.py` as follows:
 
 ```shell
