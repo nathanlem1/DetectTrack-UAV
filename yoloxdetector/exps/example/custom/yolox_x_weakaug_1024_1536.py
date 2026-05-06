@@ -20,7 +20,7 @@ class Exp(BaseExp):
         self.depth = 1.33
         self.width = 1.25
 
-        self.input_size = (1024, 1536)  # (1002, 1520)
+        self.input_size = (1024, 1536)  # (1002, 1520) # (height, width)
         self.test_size = (1024, 1536)  # (1002, 1520)
         self.multiscale_range = 0  # Disable multiscale augmentation
 
