@@ -357,7 +357,7 @@ If you find this work useful in your research, please consider citing it using:
 
 ```
 @misc{DetectTrackUAV2025,
-    title={{DetectTrack-UAV}: Multi-object Detection and Tracking in Moving UAV Videos},
+    title={{DetectTrack-UAV}: Multi-Class Multi-object Detection and Tracking in Moving UAV Videos},
     author={Nathanael L. Baisa},
     howpublished = {\url{https://github.com/nathanlem1/DetectTrack-UAV}},
     year={2025}
