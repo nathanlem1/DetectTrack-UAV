@@ -1,8 +1,8 @@
 # DetectTrack-UAV
-This code implements [DetectTrack-UAV: Multi-object Detection and Tracking in Moving UAV Videos]().
+This code implements [DetectTrack-UAV: Multi-Class Multi-object Detection and Tracking in Moving UAV Videos]().
 
 ## Abstract
-In this work, we investigate detection and tracking of multiple objects in moving unmanned aerial vehicle (UAV) videos. 
+In this work, we investigate detection and tracking of multiple objects of different catogories (classes) in moving unmanned aerial vehicle (UAV) videos. 
 First, we fine-tune [YOLOX-X](https://github.com/Megvii-BaseDetection/YOLOX) object detector to 
 [VisDrone2019](https://github.com/VisDrone/VisDrone-Dataset) detection images dataset. After investigating object detector 
 performances on the VisDrone2019 images dataset, we integrate it into a Kalman filter (KF) for tracking multiple objects. 
