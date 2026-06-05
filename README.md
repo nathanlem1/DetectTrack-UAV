@@ -1,5 +1,5 @@
 # DetectTrack-UAV
-This code implements [DetectTrack-UAV: Multi-Class Multi-object Detection and Tracking in Moving UAV Videos]().
+This code implements [DetectTrack-UAV: Multi-Class Multi-Object Detection and Tracking in Moving UAV Videos]().
 
 ## Abstract
 In this work, we investigate detection and tracking of multiple objects of different catogories (classes) in moving unmanned aerial vehicle (UAV) videos. 
@@ -357,7 +357,7 @@ If you find this work useful in your research, please consider citing it using:
 
 ```
 @misc{DetectTrackUAV2025,
-    title={{DetectTrack-UAV}: Multi-Class Multi-object Detection and Tracking in Moving UAV Videos},
+    title={{DetectTrack-UAV}: Multi-Class Multi-Object Detection and Tracking in Moving UAV Videos},
     author={Nathanael L. Baisa},
     howpublished = {\url{https://github.com/nathanlem1/DetectTrack-UAV}},
     year={2025}
