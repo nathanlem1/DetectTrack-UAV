@@ -1,5 +1,5 @@
 # DetectTrack-UAV
-This code implements [DetectTrack-UAV: Multi-Class Multi-Object Detection and Tracking in Moving UAV Videos]().
+This code implements *DetectTrack-UAV: Multi-Class Multi-Object Detection and Tracking in Moving UAV Videos*.
 
 ## Abstract
 In this work, we investigate detection and tracking of multiple objects of different catogories (classes) in moving unmanned aerial vehicle (UAV) videos. 
@@ -100,7 +100,8 @@ python tools/train.py -f exps/example/custom/yolox_x_weakaug_1024_1536.py -d 1 -
 ``` 
 
 Note that increasing the input image size increases the detection performance at the expense of more computation time, 
-both training and inference time.
+both training and inference time. Another possibility to increase detection performance is to include `test-dev` split 
+(1,610 images) into the `train` split (6,471 images) to increase the diversity of the training data (6471 + 1610).
 
 ### Detection Demo
 First, you need to download a pretrained model from [here](https://drive.google.com/file/d/12BoRMRhfbBHnoN45lyVLQVxIWGLTjFI1/view?usp=drive_link) 
