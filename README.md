@@ -43,7 +43,7 @@ pip install cython; pip install 'git+https://github.com/cocodataset/cocoapi.git#
 
 **Step 3.** Others
 ```shell
-# Cython-bbox
+# Cython-bbox; this is only required if you want to uncomment and use it in tracker/matching.py. Hence, this is optional.
 pip install cython_bbox
 
 # faiss cpu / gpu
