@@ -6,7 +6,7 @@ from scipy.spatial.distance import cdist
 
 import torch
 
-from cython_bbox import bbox_overlaps as bbox_ious
+# from cython_bbox import bbox_overlaps as bbox_ious  # To use this install using: pip install cython-bbox
 from tracker import kalman_filter_score
 
 
@@ -49,24 +49,24 @@ def box_area(bbox):
     return area
 
 
-def ious(atlbrs, btlbrs):
-    """
-    Compute Intersection-Over-Union (IoU) of two bounding boxes.
-    :type atlbrs: list[tlbr] | np.ndarray
-    :type atlbrs: list[tlbr] | np.ndarray
-
-    :rtype ious np.ndarray
-    """
-    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=float)  # np.float
-    if ious.size == 0:
-        return ious
-
-    ious = bbox_ious(
-        np.ascontiguousarray(atlbrs, dtype=float),
-        np.ascontiguousarray(btlbrs, dtype=float)
-    )
-
-    return ious
+# def ious(atlbrs, btlbrs):
+#     """
+#     Compute Intersection-Over-Union (IoU) of two bounding boxes.
+#     :type atlbrs: list[tlbr] | np.ndarray
+#     :type atlbrs: list[tlbr] | np.ndarray
+#
+#     :rtype ious np.ndarray
+#     """
+#     ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=float)  # np.float
+#     if ious.size == 0:
+#         return ious
+#
+#     ious = bbox_ious(
+#         np.ascontiguousarray(atlbrs, dtype=float),
+#         np.ascontiguousarray(btlbrs, dtype=float)
+#     )
+#
+#     return ious
 
 
 def iou_batch(bboxes1, bboxes2):
@@ -378,8 +378,8 @@ def iou_distance(atracks, btracks, dist_type="iou"):
     elif dist_type == "ciou":
         _ious = bbox_overlaps_ciou(atlbrs, btlbrs)
     elif dist_type == "iou":
-        _ious = ious(atlbrs, btlbrs)  # iou similarity, using cython_bbox gives better result than using iou_batch.
-        # _ious = iou_batch(atlbrs, btlbrs)
+        # _ious = ious(atlbrs, btlbrs)  # iou similarity, using cython_bbox gives better result than using iou_batch.
+        _ious = iou_batch(atlbrs, btlbrs)
     else:
         raise ValueError('Set to correct IoU distance type: giou, diou, ciou or iou.')
 
