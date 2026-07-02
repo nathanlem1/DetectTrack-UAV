@@ -48,7 +48,7 @@ def make_parser():
                         help="use the default parameters as in the paper")
     parser.add_argument("--save-frames", dest="save_frames", default=False, action="store_true",
                         help="save sequences with tracks.")
-    parser.add_argument('--display_tracks', default=True, action="store_true", help='Display sequences with tracks.')
+    parser.add_argument('--display_tracks', default=False, action="store_true", help='Display sequences with tracks.')
 
     # Detector
     parser.add_argument("--device", default="gpu", type=str, help="device to run our model, can either be cpu or gpu")
@@ -60,7 +60,7 @@ def make_parser():
     parser.add_argument("--fuse", dest="fuse", default=False, action="store_true", help="Fuse conv and bn for testing.")
 
     # tracking args
-    parser.add_argument("--filter_type", type=str, default='UKF',
+    parser.add_argument("--filter_type", type=str, default='KF',
                         help="Filter to use: KF or UKF. The UKF requires carefully tuning of some thresholds.")
     parser.add_argument("--track_high_thresh", type=float, default=0.6,
                         help="tracking confidence threshold for the first association")
@@ -79,19 +79,33 @@ def make_parser():
     parser.add_argument("--cmc-method", default="none", type=str,
                         help="cmc method: sparseOptFlow | orb | sift | ecc | none")
 
-    # Weak cues
+    # Appearance and weak cues
+    parser.add_argument("--with-appearance", dest="with_appearance", default=False, action="store_true",
+                        help="For using appearance representation features.")
+    parser.add_argument("--fast-reid-config", dest="fast_reid_config", default=None, type=str,
+                        help="reid config file path")
+    parser.add_argument("--fast-reid-weights", dest="fast_reid_weights", default=None, type=str,
+                        help="reid config file path")
+
     parser.add_argument('--iou_thresh', type=float, default=0.5,
                         help='threshold for rejecting low overlap reid matches')
+    parser.add_argument('--appearance_thresh', type=float, default=0.25,
+                        help='threshold for rejecting low appearance similarity reid matches')
+
     parser.add_argument('--with-hiou', dest='with_hiou', default=False, action='store_true',
                         help='For using weak clue, particularly height-IoU distance.')
     parser.add_argument('--with-confidence', dest='with_confidence', default=False, action='store_true',
                         help='For using weak clue, particularly confidence distance.')
 
-    # Fusion (iou with weak cues)
-    parser.add_argument('--lambda1', type=float, default=0.1,
-                        help='Value for lambda 1 - weight for height-IoU (for weighted_sum')
-    parser.add_argument('--lambda2', type=float, default=0.1,
-                        help='Value for lambda 2 - weight for tracklet confidence (for weighted_sum')
+    # Weighted Sum Fusion: lambda weights for strong cues (iou, app) and weak cues (height-IoU, tracklet confidence)
+    parser.add_argument('--lambda1', type=float, default=1.0, # 1.0
+                        help='Value for lambda 1 - weight for IoU')
+    parser.add_argument('--lambda2', type=float, default=0.15, # 0.1
+                        help='Value for lambda 2 - weight for Appearance')
+    parser.add_argument('--lambda3', type=float, default=0.1,
+                        help='Value for lambda 3 - weight for height-IoU')
+    parser.add_argument('--lambda4', type=float, default=0.1,
+                        help='Value for lambda 4 - weight for tracklet confidence')
 
     parser.add_argument('--second_matching_distance', default='iou', type=str,
                         help='Matching distance for the second matching: iou or mahalanobis')
@@ -381,13 +395,11 @@ if __name__ == "__main__":
                 if args.benchmark == 'VisDrone':
                     args.exp_file = './yoloxdetector/exps/example/custom/yolox_x_weakaug_640.py'
                     args.ckpt = r'./yoloxdetector/pretrained/yolox_best_ckpt_640.pth'    # Detection, VisDrone
-                    # args.exp_file = './yoloxdetector/exps/example/custom/yolox_x_weakaug_2048.py'
-                    # args.ckpt = r'./yoloxdetector/pretrained/yolox_best_ckpt_2048.pth'    # Detection, VisDrone
+                    args.fast_reid_weights = r"./reid/osnet_ibn_256x128_v2-150.pth"  # ReId, VisDrone2019
                 elif args.benchmark == 'UAVDT':
                     args.exp_file = './yoloxdetector/exps/example/custom/yolox_x_weakaug_640.py'
                     args.ckpt = r'./yoloxdetector/pretrained/yolox_best_ckpt_640.pth'    # Detection, VisDrone
-                    # args.exp_file = './yoloxdetector/exps/example/custom/yolox_x_weakaug_2048.py'
-                    # args.ckpt = r'./yoloxdetector/pretrained/yolox_best_ckpt_2048.pth'    # Detection, VisDrone
+                    args.fast_reid_weights = r"./reid/osnet_ibn_256x128_v2-150.pth"  # ReId, VisDrone2019
                 else:
                     raise ValueError("Error: Unsupported benchmark:" + args.benchmark)
 

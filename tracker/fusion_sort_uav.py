@@ -7,9 +7,12 @@ from tracker.basetrack import BaseTrack, TrackState
 from tracker.kalman_filter_score import KalmanFilterScore
 from tracker.unscented_kalman_filter_score import UnscentedKalmanFilterScore
 
+from reid.osnet_ibn_x1_0_interface import OSNetReIDInterface
+
+from loguru import logger
+
 
 class STrack(BaseTrack):
-    # shared_kalman = KalmanFilterScore()
 
     def __init__(self, tlwh=(), score=0.9, category_index=0, feat=None, feat_history=50, velocity=()):
 
@@ -284,7 +287,11 @@ class FusionSORTUAV(object):
 
         # ReID module
         self.iou_thresh = args.iou_thresh
-        # self.appearance_thresh = args.appearance_thresh
+        self.appearance_thresh = args.appearance_thresh
+
+        if args.with_appearance:
+            self.encoder = OSNetReIDInterface(args.fast_reid_weights, args.device, 50)
+            logger.info("ReID Model Summary: {}".format(self.encoder.model_info))
 
         self.cmc = CMC(benchmark=args.benchmark, method=args.cmc_method, verbose=[args.name, args.ablation])
 
@@ -325,10 +332,19 @@ class FusionSORTUAV(object):
             scores_keep = []
             classes_keep = []
 
+        '''Extract embeddings '''
+        if self.args.with_appearance:
+            # If this fails due to memory issue, you need to reduce the batch_size for feature extraction
+            features_keep = self.encoder.inference(img, dets)
+
         if len(dets) > 0:
             '''Detections'''
-            detections = [STrack(STrack.tlbr_to_tlwh(tlbr), s, c) for
-                          (tlbr, s, c) in zip(dets, scores_keep, classes_keep)]  # detections_first
+            if self.args.with_appearance:  # Todo:
+                detections = [STrack(STrack.tlbr_to_tlwh(tlbr), s, c, f) for
+                              (tlbr, s, c, f) in zip(dets, scores_keep, classes_keep, features_keep)]  # detections_first
+            else:
+                detections = [STrack(STrack.tlbr_to_tlwh(tlbr), s, c) for
+                              (tlbr, s, c) in zip(dets, scores_keep, classes_keep)]  # detections_first
         else:
             detections = []
 
@@ -364,14 +380,20 @@ class FusionSORTUAV(object):
 
         ious_dists = matching.fuse_score(ious_dists, detections)  # Fusing IoU with detection score
 
-        # Apply weighted sum fusion method: ious_dists, hious_dists and confidence_dists
+        # Apply weighted sum fusion method: ious_dists, emb_dists, hious_dists and confidence_dists
         dists = ious_dists
+        if self.args.with_appearance:
+            emb_dists = matching.embedding_distance(strack_pool, detections) / 2.0
+            emb_dists[emb_dists > self.appearance_thresh] = 1.0
+            # emb_dists[ious_dists_mask] = 1.0
+            dists = self.args.lambda1 * ious_dists + self.args.lambda2 * emb_dists
         if self.args.with_hiou:
             # hious_dists[ious_dists_mask] = 1.0
-            dists = dists + self.args.lambda1 * hious_dists
+            dists = dists + self.args.lambda3 * hious_dists
         if self.args.with_confidence:
             # confidence_dists[ious_dists_mask] = 1.0
-            dists = dists + self.args.lambda2 * confidence_dists
+            dists = dists + self.args.lambda4 * confidence_dists
+
 
         matches, u_track, u_detection = matching.linear_assignment(dists, thresh=self.args.match_thresh)  # u_detection_first
 
@@ -446,14 +468,19 @@ class FusionSORTUAV(object):
 
         ious_dists = matching.fuse_score(ious_dists, detections)  # Fusing IoU with detection score
 
-        # Apply weighted sum fusion method: ious_dists, hious_dists and confidence_dists
+        # Apply weighted sum fusion method: ious_dists, emb_dists, hious_dists and confidence_dists
         dists = ious_dists
+        if self.args.with_appearance:
+            emb_dists = matching.embedding_distance(unconfirmed, detections) / 2.0
+            emb_dists[emb_dists > self.appearance_thresh] = 1.0
+            # emb_dists[ious_dists_mask] = 1.0  # Using mask due to IoU decreases result for this fusion method
+            dists = self.args.lambda1 * ious_dists + self.args.lambda2 * emb_dists
         if self.args.with_hiou:
             # hious_dists[ious_dists_mask] = 1.0
-            dists = dists + self.args.lambda1 * hious_dists
+            dists = dists + self.args.lambda3 * hious_dists
         if self.args.with_confidence:
             # confidence_dists[ious_dists_mask] = 1.0
-            dists = dists + self.args.lambda2 * confidence_dists
+            dists = dists + self.args.lambda4 * confidence_dists
 
         matches, u_unconfirmed, u_detection = matching.linear_assignment(dists, thresh=0.7)
         for itracked, idet in matches:
