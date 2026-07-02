@@ -88,7 +88,7 @@ class KalmanFilterScore(object):
         covariance = np.diag(np.square(std))
         return mean, covariance
 
-    def predict(self, mean, covariance):
+    def predict(self, mean, covariance, velocity=()):
         """Run Kalman filter prediction step.
 
         Parameters
@@ -163,7 +163,7 @@ class KalmanFilterScore(object):
             self._update_mat, covariance, self._update_mat.T))  # H_k P_k|k-1 H_k^T
         return mean, covariance + innovation_cov
 
-    def multi_predict(self, mean, covariance):
+    def multi_predict(self, mean, covariance, velocity=()):
         """Run Kalman filter prediction step (Vectorized version).
         Parameters
         ----------

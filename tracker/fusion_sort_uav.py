@@ -5,12 +5,13 @@ from tracker import matching
 from tracker.cmc_uav import CMC
 from tracker.basetrack import BaseTrack, TrackState
 from tracker.kalman_filter_score import KalmanFilterScore
+from tracker.unscented_kalman_filter_score import UnscentedKalmanFilterScore
 
 
 class STrack(BaseTrack):
-    shared_kalman = KalmanFilterScore()
+    # shared_kalman = KalmanFilterScore()
 
-    def __init__(self, tlwh, score, category_index=0, feat=None, feat_history=50):
+    def __init__(self, tlwh=(), score=0.9, category_index=0, feat=None, feat_history=50, velocity=()):
 
         # Wait activate
         self._tlwh = np.asarray(tlwh, dtype=float)  # np.float
@@ -23,6 +24,7 @@ class STrack(BaseTrack):
         self.score = score
         self.tracklet_len = 0
         self.category = int(category_index)
+        self.velocity = list(velocity)
 
         self.smooth_feat = None
         self.curr_feat = None
@@ -53,17 +55,21 @@ class STrack(BaseTrack):
             mean_state[9] = 0  # Set the derivative of c to zero (confidence preservation)
         self.mean, self.covariance = self.kalman_filter.predict(mean_state, self.covariance)
 
-    @staticmethod
-    def multi_predict(stracks):
+    # @staticmethod
+    # def multi_predict(stracks):
+    def multi_predict(self, kalman_filter, stracks):
         if len(stracks) > 0:
+            temp = [np.zeros(shape=(5,)), np.zeros(shape=(5,))]  # For [vx, vy, vw, vh , vc]
             multi_mean = np.asarray([st.mean.copy() for st in stracks])
             multi_covariance = np.asarray([st.covariance for st in stracks])
+            multi_velocity = np.asarray([st.velocity[-2:] if len(st.velocity) >= 2 else temp for st in stracks])
             for i, st in enumerate(stracks):
                 if st.state != TrackState.Tracked:
                     multi_mean[i][7] = 0  # Set the derivative of w to zero (width preservation)
                     multi_mean[i][8] = 0  # Set the derivative of h to zero (height preservation)
                     multi_mean[i][9] = 0  # Set the derivative of c to zero (confidence preservation)
-            multi_mean, multi_covariance = STrack.shared_kalman.multi_predict(multi_mean, multi_covariance)
+            # multi_mean, multi_covariance = STrack.shared_kalman.multi_predict(multi_mean, multi_covariance)
+            multi_mean, multi_covariance = kalman_filter.multi_predict(multi_mean, multi_covariance, multi_velocity)
             for i, (mean, cov) in enumerate(zip(multi_mean, multi_covariance)):
                 stracks[i].mean = mean
                 stracks[i].covariance = cov
@@ -131,6 +137,7 @@ class STrack(BaseTrack):
 
         self.score = new_track.score
         self.category = new_track.category
+        self.velocity = new_track.velocity
 
     def update(self, new_track, frame_id, with_nsa=False):
         """
@@ -165,6 +172,7 @@ class STrack(BaseTrack):
         self.is_activated = True
 
         self.score = new_track.score
+        self.velocity.append(self.mean[5:])  # [vx, vy, vw, vh, vc]
 
     @property
     def tlwh(self):
@@ -266,7 +274,13 @@ class FusionSORTUAV(object):
         self.buffer_size = int(frame_rate / 30.0 * args.track_buffer)
         self.max_time_lost = self.buffer_size
 
-        self.kalman_filter = KalmanFilterScore()
+        self.strack = STrack()
+        if args.filter_type == 'KF':
+            self.kalman_filter = KalmanFilterScore()
+        elif args.filter_type == 'UKF':
+            self.kalman_filter = UnscentedKalmanFilterScore()
+        else:
+            raise TypeError("Set type of filter to use: KF or UKF.")
 
         # ReID module
         self.iou_thresh = args.iou_thresh
@@ -330,8 +344,8 @@ class FusionSORTUAV(object):
         ''' Step 2: First association, with high score detection boxes'''
         strack_pool = joint_stracks(tracked_stracks, self.lost_stracks)
 
-        # Predict the current location with KF
-        STrack.multi_predict(strack_pool)
+        # Predict the current location with KF or UKF
+        self.strack.multi_predict(self.kalman_filter, strack_pool)
 
         # Fix camera motion
         if self.args.cmc_method != 'none':

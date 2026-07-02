@@ -48,7 +48,7 @@ def make_parser():
                         help="use the default parameters as in the paper")
     parser.add_argument("--save-frames", dest="save_frames", default=False, action="store_true",
                         help="save sequences with tracks.")
-    parser.add_argument('--display_tracks', default=False, action="store_true", help='Display sequences with tracks.')
+    parser.add_argument('--display_tracks', default=True, action="store_true", help='Display sequences with tracks.')
 
     # Detector
     parser.add_argument("--device", default="gpu", type=str, help="device to run our model, can either be cpu or gpu")
@@ -60,6 +60,8 @@ def make_parser():
     parser.add_argument("--fuse", dest="fuse", default=False, action="store_true", help="Fuse conv and bn for testing.")
 
     # tracking args
+    parser.add_argument("--filter_type", type=str, default='UKF',
+                        help="Filter to use: KF or UKF. The UKF requires carefully tuning of some thresholds.")
     parser.add_argument("--track_high_thresh", type=float, default=0.6,
                         help="tracking confidence threshold for the first association")
     parser.add_argument("--track_low_thresh", default=0.1, type=float,
