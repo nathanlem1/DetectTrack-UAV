@@ -55,12 +55,12 @@ pip install faiss-gpu
 
 First, we need to convert [VisDrone2019](https://github.com/VisDrone/VisDrone-Dataset) `Object Detection in Images` 
 dataset to COCO format using a script given in `yoloxdetector/tools/visdrone_to_coco.py`. The detection dataset is 
-expected to be put in the `DetectTrack-UAV/yoloxdetector/detectiondatasets/VisDrone2019` folder according to the 
+expected to be put in the `DetectTrack-UAV/yoloxdetector/detectiondatasets/VisDrone2019-DET` folder according to the 
 following structure:
 
 
 ```
-DetectTrack-UAV/yoloxdetector/detectiondatasets/VisDrone2019
+DetectTrack-UAV/yoloxdetector/detectiondatasets/VisDrone2019-DET
                                             |——————Annotations
                                             |        └——————train.json
                                             |        └——————val.json
@@ -126,7 +126,7 @@ python tools/demo.py video -f exps/example/custom/yolox_x_weakaug_640.py -c ./pr
 * **Method 2:** Using Streamlit
 
 
-First you need to install Streamlit app dependencies by changing path:
+First, you need to install Streamlit app dependencies by changing a path:
 
 `cd yolox_streamlit_app` 
 
@@ -145,7 +145,7 @@ streamlit run app.py
 ```
 Note that you may need to change the path to the custom exp path in the `yolox_inference.py`, placed 
 here: `exp = get_exp(r"../exps/example/custom/yolox_x_weakaug_640.py", None)` and its corresponding ckpt 
-`ckpt = torch.load("../pretrained/yolox_best_ckpt_640.pth", map_location="cpu", weights_only=False)`.
+`ckpt = torch.load("../../pretrained/yolox_best_ckpt_640.pth", map_location="cpu", weights_only=False)`.
 
 
 
@@ -201,11 +201,11 @@ DetectTrack-UAV/trackingdatasets
 ### Pretrained Model 
 
 First, you need to download a pretrained detection model from [here](https://drive.google.com/file/d/12BoRMRhfbBHnoN45lyVLQVxIWGLTjFI1/view?usp=drive_link) 
-and then put in `DetectTrack-UAV/yoloxdetector/pretrained` 
+and then put in `DetectTrack-UAV/pretrained` 
 folder, and then follow the following instructions.
 
 You also need to download a pretrained ReID model from [here](https://drive.google.com/file/d/1b1PvnUAQIzycDvFn2NWYnJPjngWHqfgh/view?usp=drive_link) 
-and then put in `DetectTrack-UAV/reid`. The ReID model is trained VisDrone2019 according to data partition explained in [here](https://github.com/nathanlem1/VisDrone-ReID).
+and then put in `DetectTrack-UAV/pretrained`. The ReID model is trained VisDrone2019 according to data partition explained in [here](https://github.com/nathanlem1/VisDrone-ReID).
 
 
 * **Running on VisDrone2019**
