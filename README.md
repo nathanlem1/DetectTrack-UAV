@@ -2,11 +2,11 @@
 This code implements *DetectTrack-UAV: Multi-Class Multi-Object Detection and Tracking in Moving UAV Videos*.
 
 ## Abstract
-In this work, we investigate detection and tracking of multiple objects of different catogories (classes) in moving unmanned aerial vehicle (UAV) videos. 
-First, we fine-tune [YOLOX-X](https://github.com/Megvii-BaseDetection/YOLOX) object detector to 
+In this work, we investigate detection and tracking of multiple objects of different catogories (classes) in moving 
+unmanned aerial vehicle (UAV) videos. First, we fine-tune [YOLOX-X](https://github.com/Megvii-BaseDetection/YOLOX) object detector to 
 [VisDrone2019](https://github.com/VisDrone/VisDrone-Dataset) detection images dataset. After investigating object detector 
 performances on the VisDrone2019 images dataset, we integrate it into a Kalman filter (KF) for tracking multiple objects. 
-In addition to considering motion as strong cue, we also consider weak cues such as height intersection-over-union 
+In addition to considering motion and appearance as strong cues, we also consider weak cues such as height intersection-over-union 
 (height-IoU) and tracklet confidence in the data association using a weighted sum fusion method though the weak cues do 
 not increase performance. We conduct extensive evaluations on [VisDrone2019](https://github.com/VisDrone/VisDrone-Dataset) 
 and [UAVDT](https://sites.google.com/view/grli-uavdt/%E9%A6%96%E9%A1%B5) Multi-Object Tracking (MOT) datasets as a zero-shot solution, and find out that our proposed tracker,
@@ -100,8 +100,9 @@ python tools/train.py -f exps/example/custom/yolox_x_weakaug_1024_1536.py -d 1 -
 ``` 
 
 Note that increasing the input image size increases the detection performance at the expense of more computation time, 
-both training and inference time. Another possibility to increase detection performance is to include `test-dev` split 
-(1,610 images) into the `train` split (6,471 images) to increase the diversity of the training data (6471 + 1610).
+both training and inference time. The other image sizes to consider include (1080 x 1920) or (1280 x 1920). Another 
+possibility to increase detection performance is to include `test-dev` split (1,610 images) into the `train` split (6,471 images) 
+to increase the diversity of the training data (6471 + 1610). This can increase the overall tracking performance.
 
 ### Detection Demo
 First, you need to download a pretrained model from [here](https://drive.google.com/file/d/12BoRMRhfbBHnoN45lyVLQVxIWGLTjFI1/view?usp=drive_link) 
@@ -203,6 +204,9 @@ First, you need to download a pretrained detection model from [here](https://dri
 and then put in `DetectTrack-UAV/yoloxdetector/pretrained` 
 folder, and then follow the following instructions.
 
+You also need to download a pretrained ReID model from [here](https://drive.google.com/file/d/1b1PvnUAQIzycDvFn2NWYnJPjngWHqfgh/view?usp=drive_link) 
+and then put in `DetectTrack-UAV/reid`. The ReID model is trained VisDrone2019 according to data partition explained in [here](https://github.com/nathanlem1/VisDrone-ReID).
+
 
 * **Running on VisDrone2019**
 
@@ -212,8 +216,11 @@ To run the tracker on the VisDrone2019 test dataset for single-class evaluation,
 # Using motion only, Being in 'DetectTrack-UAV/' folder
 python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --benchmark VisDrone --eval test --experiment-name FSORTuav1 --fp16 --fuse
 
-# Using motion, hiou and confidence distances
-python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with-hiou --with-confidence --benchmark VisDrone --eval test --experiment-name FSORTuav1 --fp16 --fuse
+# Using motion and appearance, Being in 'DetectTrack-UAV/' folder
+python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with_appearance --benchmark VisDrone --eval test --experiment-name FSORTuav1 --fp16 --fuse
+
+# Using motion, appearance, hiou and confidence distances
+python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with_appearance --with-hiou --with-confidence --benchmark VisDrone --eval test --experiment-name FSORTuav1 --fp16 --fuse
 ```
 
 To run the tracker on the VisDrone2019 test dataset for multi-class evaluation, `VisDrone2019-MOT-test-dev`, you need to run:
@@ -222,8 +229,11 @@ To run the tracker on the VisDrone2019 test dataset for multi-class evaluation, 
 # Using motion only, Being in 'DetectTrack-UAV/' folder
 python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --benchmark VisDrone --eval test --multi_class_eval --experiment-name FSORTuav2 --fp16 --fuse
 
-# Using motion, hiou and confidence distances
-python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with-hiou --with-confidence --benchmark VisDrone --eval test --multi_class_eval --experiment-name FSORTuav2 --fp16 --fuse
+# Using motion and appearance, Being in 'DetectTrack-UAV/' folder
+python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with_appearance --benchmark VisDrone --eval test --multi_class_eval --experiment-name FSORTuav2 --fp16 --fuse
+
+# Using motion, appearance, hiou and confidence distances
+python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with_appearance --with-hiou --with-confidence --benchmark VisDrone --eval test --multi_class_eval --experiment-name FSORTuav2 --fp16 --fuse
 ```
 
 * **Running on UAVDT**
@@ -234,8 +244,11 @@ To run the tracker on the UAVDT test dataset, you need to run:
 # Using motion only, Being in 'DetectTrack-UAV/' folder
 python run_tracker_uav.py  --path ./trackingdatasets/UAVDT/UAV-benchmark-M --default-parameters --benchmark UAVDT --eval test --experiment-name FSORTuav1 --fp16 --fuse
 
-# Using motion, hiou and confidence distances
-python run_tracker_uav.py --path ./trackingdatasets/UAVDT/UAV-benchmark-M --default-parameters --with-hiou --with-confidence --benchmark UAVDT --eval test --experiment-name FSORTuav1 --fp16 --fuse
+# Using motion and appearance, Being in 'DetectTrack-UAV/' folder
+python run_tracker_uav.py  --path ./trackingdatasets/UAVDT/UAV-benchmark-M --default-parameters --with_appearance --benchmark UAVDT --eval test --experiment-name FSORTuav1 --fp16 --fuse
+
+# Using motion, appearance, hiou and confidence distances
+python run_tracker_uav.py --path ./trackingdatasets/UAVDT/UAV-benchmark-M --default-parameters --with_appearance --with-hiou --with-confidence --benchmark UAVDT --eval test --experiment-name FSORTuav1 --fp16 --fuse
 ```
 
 * **Interpolation**
@@ -320,7 +333,7 @@ oversized false positive (FP)** function. You run this only once.
 python Easier_To_Use_TrackEval/dataset_tools/parse_uavdt_annotations.py --data_root ./trackingdatasets/UAVDT/
 ```
 
-Subsequently run
+Subsequently, run
 
 ```bash
 # Being in 'DetectTrack-UAV/' folder
