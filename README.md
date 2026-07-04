@@ -106,20 +106,20 @@ to increase the diversity of the training data (6471 + 1610). This can increase 
 
 ### Detection Demo
 First, you need to download a pretrained model from [here](https://drive.google.com/file/d/12BoRMRhfbBHnoN45lyVLQVxIWGLTjFI1/view?usp=drive_link) 
-and then put in `DetectTrack-UAV/yoloxdetector/pretrained` folder.
+and then put in `DetectTrack-UAV/pretrained` folder.
 
 * **Method 1:** Using traditional approach
 
 Demo for image:
 ```shell
 # Being in DetectTrack-UAV/yoloxdetector folder
-python tools/demo.py image -f exps/example/custom/yolox_x_weakaug_640.py -c ./pretrained/yolox_best_ckpt_640.pth --path assets/sample_image.jpg --conf 0.25 --nms 0.45 --tsize 640 --save_result --device [cpu/gpu]
+python tools/demo.py image -f exps/example/custom/yolox_x_weakaug_640.py -c ../pretrained/yolox_best_ckpt_640.pth --path assets/sample_image.jpg --conf 0.25 --nms 0.45 --tsize 640 --save_result --device [cpu/gpu]
 ```
 
 Demo for video:
 ```shell
 # Being in DetectTrack-UAV/yoloxdetector folder
-python tools/demo.py video -f exps/example/custom/yolox_x_weakaug_640.py -c ./pretrained/yolox_best_ckpt_640.pth --path assets/sample_video.jpg --conf 0.25 --nms 0.45 --tsize 640 --save_result --device [cpu/gpu]
+python tools/demo.py video -f exps/example/custom/yolox_x_weakaug_640.py -c ../pretrained/yolox_best_ckpt_640.pth --path assets/sample_video.jpg --conf 0.25 --nms 0.45 --tsize 640 --save_result --device [cpu/gpu]
 ```
 
 
