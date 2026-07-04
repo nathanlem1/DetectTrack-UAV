@@ -160,7 +160,7 @@ following structure:
 
 ```
 DetectTrack-UAV/trackingdatasets
-                    |——————VisDrone2019/MOT
+                    |——————VisDrone2019-MOT
                     |        └——————VisDrone2019-MOT-test-dev
                     |               └——————annotations 
                     |                       └——————uav0000009_03358_v.txt
