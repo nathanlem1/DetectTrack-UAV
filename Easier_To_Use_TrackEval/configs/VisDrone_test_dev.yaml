@@ -28,7 +28,7 @@
 
 gt_structure_config: 
   #data_root: '/data/wujiapeng/datasets/VisDrone2019/VisDrone2019/'
-  data_root: '../datasets/VisDrone2019/MOT/'
+  data_root: '../datasets/VisDrone2019-MOT/'
   has_split: True
   train_or_test: test
   train_folder_name: VisDrone2019-MOT-train
