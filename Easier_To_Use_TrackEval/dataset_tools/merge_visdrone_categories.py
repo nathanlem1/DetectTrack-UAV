@@ -81,8 +81,7 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    # parser.add_argument('--data_root', type=str, default='/data/wujiapeng/datasets/VisDrone2019/VisDrone2019')
-    parser.add_argument('--data_root', type=str, default='C:/Users/nbaisa00/PycharmProjects/PythonProjects/datasets/VisDrone2019/MOT')
+    parser.add_argument('--data_root', type=str, default='C:/Users/nbaisa00/PycharmProjects/PythonProjects/datasets/VisDrone2019-MOT')
     parser.add_argument('--split', type=str, default='test', )
     parser.add_argument('--store_file_name', type=str, default='merge_cls_gt')
 
