@@ -394,12 +394,12 @@ if __name__ == "__main__":
             if args.default_parameters:
                 if args.benchmark == 'VisDrone':
                     args.exp_file = './yoloxdetector/exps/example/custom/yolox_x_weakaug_640.py'
-                    args.ckpt = r'./yoloxdetector/pretrained/yolox_best_ckpt_640.pth'    # Detection, VisDrone
-                    args.fast_reid_weights = r"./reid/osnet_ibn_visdrone_256x128-150.pth"  # ReId, VisDrone2019
+                    args.ckpt = r'./pretrained/yolox_best_ckpt_640.pth'    # Detection, VisDrone
+                    args.fast_reid_weights = r"./pretrained/osnet_ibn_visdrone_256x128-150.pth"  # ReId, VisDrone2019
                 elif args.benchmark == 'UAVDT':
                     args.exp_file = './yoloxdetector/exps/example/custom/yolox_x_weakaug_640.py'
-                    args.ckpt = r'./yoloxdetector/pretrained/yolox_best_ckpt_640.pth'    # Detection, VisDrone
-                    args.fast_reid_weights = r"./reid/osnet_ibn_visdrone_256x128-150.pth"  # ReId, VisDrone2019
+                    args.ckpt = r'./pretrained/yolox_best_ckpt_640.pth'    # Detection, VisDrone
+                    args.fast_reid_weights = r"./pretrained/osnet_ibn_visdrone_256x128-150.pth"  # ReId, VisDrone2019
                 else:
                     raise ValueError("Error: Unsupported benchmark:" + args.benchmark)
 
