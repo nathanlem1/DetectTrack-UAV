@@ -4,8 +4,8 @@ import json
 import cv2
 from matplotlib import pyplot as plt
 
-COCO_PATH = "datasets/VisDrone2019/annotations/train.json"
-IMG_DIR = "datasets/VisDrone2019/train_images"
+COCO_PATH = "detectiondatasets/VisDrone2019-DET/annotations/train.json"
+IMG_DIR = "detectiondatasets/VisDrone2019-DET/train_images"
 
 with open(COCO_PATH, "r") as f:
     data = json.load(f)

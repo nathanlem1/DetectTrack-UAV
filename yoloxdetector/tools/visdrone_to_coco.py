@@ -77,7 +77,7 @@ def convert_visdrone_to_coco(img_dir, ann_dir, save_path):
 
 
 if __name__ == "__main__":
-    base = "./detectiondatasets/VisDrone2019"
+    base = "./detectiondatasets/VisDrone2019-DET"
 
     convert_visdrone_to_coco(
         img_dir=f"{base}/train_images",

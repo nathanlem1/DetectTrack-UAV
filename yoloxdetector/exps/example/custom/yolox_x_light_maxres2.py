@@ -9,7 +9,7 @@ class Exp(BaseExp):
 
         self.exp_name = os.path.splitext(os.path.basename(__file__))[0]
 
-        self.data_dir = "detectiondatasets/VisDrone2019"
+        self.data_dir = "detectiondatasets/VisDrone2019-DET"
         self.train_ann = "train.json"
         self.val_ann = "val.json"
         self.num_classes = 10

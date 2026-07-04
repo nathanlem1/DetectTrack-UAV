@@ -20,7 +20,7 @@ class Exp(BaseExp):
         self.multiscale_range = 0
 
         # Dataset paths
-        self.data_dir = "detectiondatasets/VisDrone2019"
+        self.data_dir = "detectiondatasets/VisDrone2019-DET"
         self.train_ann = "train.json"
         self.val_ann = "val.json"   # Use this for evaluating on val_images.
         # self.val_ann = "test.json"  # Use this for evaluating on test_images.
