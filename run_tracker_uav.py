@@ -28,9 +28,9 @@ timer = Timer()
 def make_parser():
     parser = argparse.ArgumentParser(description='Tracking pipeline for tracking objects in UAV videos.')
 
-    parser.add_argument("--path", default='./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences',
+    parser.add_argument("--path", default='./trackingdatasets/VisDrone2019-MOT/VisDrone2019-MOT-test-dev/sequences',
                         type=str, help="path to dataset under evaluation, currently only support VisDrone2019 and UAVDT."
-                             "./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences  OR "  
+                             "./trackingdatasets/VisDrone2019-MOT/VisDrone2019-MOT-test-dev/sequences  OR "  
                              "./trackingdatasets/UAVDT/UAV-benchmark-M")
     parser.add_argument('--output_dir', type=str, default='./results/trackers',
                         help='Path to base tracking result folder to be saved to.')
@@ -395,11 +395,11 @@ if __name__ == "__main__":
                 if args.benchmark == 'VisDrone':
                     args.exp_file = './yoloxdetector/exps/example/custom/yolox_x_weakaug_640.py'
                     args.ckpt = r'./yoloxdetector/pretrained/yolox_best_ckpt_640.pth'    # Detection, VisDrone
-                    args.fast_reid_weights = r"./reid/osnet_ibn_256x128_v2-150.pth"  # ReId, VisDrone2019
+                    args.fast_reid_weights = r"./reid/osnet_ibn_visdrone_256x128-150.pth"  # ReId, VisDrone2019
                 elif args.benchmark == 'UAVDT':
                     args.exp_file = './yoloxdetector/exps/example/custom/yolox_x_weakaug_640.py'
                     args.ckpt = r'./yoloxdetector/pretrained/yolox_best_ckpt_640.pth'    # Detection, VisDrone
-                    args.fast_reid_weights = r"./reid/osnet_ibn_256x128_v2-150.pth"  # ReId, VisDrone2019
+                    args.fast_reid_weights = r"./reid/osnet_ibn_visdrone_256x128-150.pth"  # ReId, VisDrone2019
                 else:
                     raise ValueError("Error: Unsupported benchmark:" + args.benchmark)
 
