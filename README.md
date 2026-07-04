@@ -214,26 +214,26 @@ To run the tracker on the VisDrone2019 test dataset for single-class evaluation,
 
 ```shell
 # Using motion only, Being in 'DetectTrack-UAV/' folder
-python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --benchmark VisDrone --eval test --experiment-name FSORTuav1 --fp16 --fuse
+python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019-MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --benchmark VisDrone --eval test --experiment-name FSORTuav1 --fp16 --fuse
 
 # Using motion and appearance, Being in 'DetectTrack-UAV/' folder
-python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with_appearance --benchmark VisDrone --eval test --experiment-name FSORTuav1 --fp16 --fuse
+python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019-MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with_appearance --benchmark VisDrone --eval test --experiment-name FSORTuav1 --fp16 --fuse
 
 # Using motion, appearance, hiou and confidence distances
-python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with_appearance --with-hiou --with-confidence --benchmark VisDrone --eval test --experiment-name FSORTuav1 --fp16 --fuse
+python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019-MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with_appearance --with-hiou --with-confidence --benchmark VisDrone --eval test --experiment-name FSORTuav1 --fp16 --fuse
 ```
 
 To run the tracker on the VisDrone2019 test dataset for multi-class evaluation, `VisDrone2019-MOT-test-dev`, you need to run:
 
 ```shell
 # Using motion only, Being in 'DetectTrack-UAV/' folder
-python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --benchmark VisDrone --eval test --multi_class_eval --experiment-name FSORTuav2 --fp16 --fuse
+python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019-MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --benchmark VisDrone --eval test --multi_class_eval --experiment-name FSORTuav2 --fp16 --fuse
 
 # Using motion and appearance, Being in 'DetectTrack-UAV/' folder
-python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with_appearance --benchmark VisDrone --eval test --multi_class_eval --experiment-name FSORTuav2 --fp16 --fuse
+python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019-MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with_appearance --benchmark VisDrone --eval test --multi_class_eval --experiment-name FSORTuav2 --fp16 --fuse
 
 # Using motion, appearance, hiou and confidence distances
-python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019/MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with_appearance --with-hiou --with-confidence --benchmark VisDrone --eval test --multi_class_eval --experiment-name FSORTuav2 --fp16 --fuse
+python run_tracker_uav.py --path ./trackingdatasets/VisDrone2019-MOT/VisDrone2019-MOT-test-dev/sequences --default-parameters --with_appearance --with-hiou --with-confidence --benchmark VisDrone --eval test --multi_class_eval --experiment-name FSORTuav2 --fp16 --fuse
 ```
 
 * **Running on UAVDT**
@@ -341,7 +341,7 @@ python Easier_To_Use_TrackEval/scripts/run_custom_dataset.py --config_path Easie
 ```
 
 Similarly, you also need to modify the 'data_root' and 'trackers_folder' in the YAML file to specify your ground truth 
-and tracking results folder. Be careful, UAVDT has a total of 50 videos, of which 20 videos are from the test set, 
+and tracking results folder. Be careful; UAVDT has a total of 50 videos, of which 20 videos are from the test set, 
 which is in UAVDT_test.yaml
 
 Please ensure that each line of your tracking results follows the following format:
