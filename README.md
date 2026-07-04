@@ -145,7 +145,7 @@ streamlit run app.py
 ```
 Note that you may need to change the path to the custom exp path in the `yolox_inference.py`, placed 
 here: `exp = get_exp(r"../exps/example/custom/yolox_x_weakaug_640.py", None)` and its corresponding ckpt 
-`ckpt = torch.load("../pretrained/yolox_best_ckpt_640.pth", map_location="cpu")`.
+`ckpt = torch.load("../pretrained/yolox_best_ckpt_640.pth", map_location="cpu", weights_only=False)`.
 
 
 
@@ -283,7 +283,7 @@ VisDrone into one valid category for evaluating together. You run this only once
 
 ```bash
 # Being in 'DetectTrack-UAV/' folder
-python Easier_To_Use_TrackEval/dataset_tools/merge_visdrone_categories.py --data_root ./trackingdatasets/VisDrone2019/MOT/
+python Easier_To_Use_TrackEval/dataset_tools/merge_visdrone_categories.py --data_root ./trackingdatasets/VisDrone2019-MOT/
 ```
 
 Then, run the following for single class evaluation:
