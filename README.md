@@ -205,7 +205,8 @@ and then put in `DetectTrack-UAV/pretrained`
 folder, and then follow the following instructions.
 
 You also need to download a pretrained ReID model from [here](https://drive.google.com/file/d/1b1PvnUAQIzycDvFn2NWYnJPjngWHqfgh/view?usp=drive_link) 
-and then put in `DetectTrack-UAV/pretrained`. The ReID model is trained VisDrone2019 according to data partition explained in [here](https://github.com/nathanlem1/VisDrone-ReID).
+and then put in `DetectTrack-UAV/pretrained`. The ReID model is trained VisDrone2019 according to data partition explained in 
+[VisDrone-ReID](https://github.com/nathanlem1/VisDrone-ReID) benchmark based on [osnet_ibn_x1_0](https://github.com/kaiyangzhou/deep-person-reid).
 
 
 * **Running on VisDrone2019**
