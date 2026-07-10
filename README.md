@@ -36,7 +36,7 @@ from [pytorch.org](https://pytorch.org/get-started/locally/).
 
 Please check the [YOLOX](https://github.com/Megvii-BaseDetection/YOLOX) README for any installation issues.
 
-**Step 2.** Install [pycocotools](https://github.com/cocodataset/cocoapi).
+**Step 2.** Install [pycocotools](https://github.com/cocodataset/cocoapi). If the follwowing doesn't work, please look at the `requirements.txt` for another option.
 ```shell
 pip install cython; pip install 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
 ```
