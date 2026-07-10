@@ -24,7 +24,8 @@ pyyaml
 yacs
 termcolor
 gdown
-# Try (uncomment) the following if pip install cython; pip install 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI' on README.md doesn't work.
+# Try (uncomment) the following if pip install cython; pip install 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
+# on README.md doesn't work. Note that YOLOX may require Python 3.10.
 #pycocotools>=2.0.2  # pycocotools corresponds to https://github.com/ppwwyyxx/cocoapi
 onnx==1.17.0  # 1.8.1
 onnxruntime==1.18.0  # 1.8.0
