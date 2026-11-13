@@ -39,8 +39,7 @@ def make_parser():
     parser.add_argument("--benchmark", dest="benchmark", type=str, default='VisDrone',
                         help="benchmark to evaluate: VisDrone | UAVDT (VisDrone2019 and UAVDT datasets).")
     parser.add_argument("--eval", dest="split_to_eval", type=str, default='test',
-                        help="split to evaluate: train | val | test (currently only test is supported - just for "
-                             "evaluation!)")
+                        help="split to evaluate: train | val | test (test is used for evaluation and comparison!)")
     parser.add_argument("-f", "--exp_file", default=None, type=str, help="pls input your experiment description file")
     parser.add_argument("-c", "--ckpt", default=None, type=str, help="ckpt for eval")
     parser.add_argument("-expn", "--experiment-name", type=str, default='FSORTuav1',
